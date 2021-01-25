@@ -2,4 +2,4 @@
 
 docker-compose build  # rebuilds images. Ensures new changes in repo are included
 
-docker-compose -f /home/mosegui/ContainerProjects/autojupyter/docker-compose.yml up --abort-on-container-exit
+docker-compose -f ${AUTOJUPYTER_COMPOSE_FILEPATH}/docker-compose.yml up --abort-on-container-exit
