@@ -16,7 +16,7 @@ The app consists of two services packed in their respective containers. One of t
 Docker Compose automatically mounts to the Jupyter container the volume from which the `autojupyter` was called. This way, the analyst can fire `autojupyter` e. g. from where the data is located and have the data automatically available in the Jupyter environment.
 
 See the demo:
-![demo](video/demo.gif)
+![demo](video/demo2.gif)
 
 
 ### Requirements
