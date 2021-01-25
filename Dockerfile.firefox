@@ -16,4 +16,4 @@ RUN export uid=1000 gid=1000 && \
 
 USER developer
 ENV HOME /home/developer
-CMD sleep 0.5 && usr/bin/firefox "jupyter:8888/tree"
+CMD sleep 1 && usr/bin/firefox "jupyter:8888/tree"
