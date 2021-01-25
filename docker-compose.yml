@@ -1,0 +1,18 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - $PWD:/opt
+  firefox:
+    build:
+      context: .
+      dockerfile: Dockerfile.firefox
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=$DISPLAY

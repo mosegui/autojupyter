@@ -1,0 +1,12 @@
+# FILE EXTENSIONS
+
+#Swap files
+*.swp
+
+
+# FOLDERS
+# PyCharm project folders
+.idea/
+
+# Jupyter session folders
+.ipynb_checkpoints

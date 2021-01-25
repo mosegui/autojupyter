@@ -1,0 +1,25 @@
+FROM python:3.8
+
+WORKDIR /opt
+
+RUN apt-get update && apt-get upgrade && yes | pip install \
+	numpy \
+	scipy \
+	pandas \
+	statsmodels \
+	scikit-learn \
+	torch \
+	tensorflow \
+	theano \
+	keras \
+	matplotlib \
+	seaborn \
+	plotly \
+	bokeh \
+	spacy \
+	beautifulsoup4 \
+	gensim \
+	nltk \
+	jupyterlab
+
+CMD ["jupyter", "notebook", "--port=8888", "--browser=chromium", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]

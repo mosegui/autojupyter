@@ -1,0 +1,68 @@
+#!/bin/bash
+
+CURRENT_TERMINAL_PID=$1
+
+################################################################################
+
+function check_if_installed {
+	# Checks if the passed program appears for the "which" command, i.e. is installed
+
+	program=$1
+
+	if ! [ "$(which ${program})" ]; then
+		printf "Autojupyter requires ${program}. Please install ${program} first!!!\n"
+        	printf "Exiting...\n"
+        	exit 1
+	else    
+        	printf "Found available ${program} installation. OK\n"
+	fi
+}
+
+
+function add_var_to_file {
+	# Adds variable KEY=value to the passed file path
+
+	var_name=$1
+	var_value=$2
+	filepath=$3
+
+	echo "">>${filepath} &&
+	echo "# Autojupyter environment variable:">>${filepath} &&
+	echo "export "$var_name"="$var_value>>${filepath} &&
+	source ${filepath} &&
+	printf "Successfully added docker-compose.yml filepath as env variable to ${filepath}\n"
+
+}
+
+###############################################################################
+
+# Check for autojupyter requirements
+check_if_installed docker
+check_if_installed docker-compose
+
+
+# Copy executable file autojupyter to /usr/bin/autojupyter
+sudo cp autojupyter /usr/bin/autojupyter &&
+printf "Executable file autojupyter copied over to /usr/bin\n"
+
+
+# Set $PWD as environment variable AUTOJUPYTER_COMPOSE_FILEPATH
+env_var_key=AUTOJUPYTER_COMPOSE_FILEPATH
+env_var_value=$PWD
+
+if ! [ $(echo ${AUTOJUPYTER_COMPOSE_FILEPATH}) ]; then
+	{  # try
+		add_var_to_file ${env_var_key} ${env_var_value} ~/.bashrc &&
+		add_var_to_file ${env_var_key} ${env_var_value} ~/.profile
+ 	} || {  # catch
+ 		printf "Error adding docker-compose.yml filepath as env variable\n"
+   	}
+else
+	printf "Environment variable ${env_var_key} already available with value: ${env_var_value}\n"
+fi
+
+
+# Installation complete. Closing the current PID (terminal) is needed fo    r new env variable to be incorporated
+printf "Installation complete. Closing in 5 seconds...\n"
+sleep 5
+kill -9 ${CURRENT_TERMINAL_PID}
