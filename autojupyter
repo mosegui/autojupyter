@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+current_dir=$PWD
+
+cd ${AUTOJUPYTER_COMPOSE_FILEPATH}
 docker-compose build  # rebuilds images. Ensures new changes in repo are included
+cd ${current_dir}
 
 docker-compose -f ${AUTOJUPYTER_COMPOSE_FILEPATH}/docker-compose.yml up --abort-on-container-exit
